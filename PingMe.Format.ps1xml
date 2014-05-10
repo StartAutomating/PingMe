@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-16"?>
+<Configuration>
+  <ViewDefinitions>
+    <View>
+      <Name>PingResult</Name>
+      <ViewSelectedBy>
+        <TypeName>PingResult</TypeName>
+      </ViewSelectedBy>
+      <CustomControl>
+        <CustomEntries>
+          <CustomEntry>
+            <CustomItem>
+              <Frame>
+                <CustomItem>
+                  <ExpressionBinding>
+                    <ScriptBlock> 
+    $foreground = if ($_.Pinged) { "Green" } else { "Red" } 
+    $message = if ($_.Pinged) { "Good" } else { $_.Result | Out-String } 
+    Write-Host "$($_.Destination)($($_.PingType)): $message" -Foreground $foreground
+    $null
+</ScriptBlock>
+                  </ExpressionBinding>
+                </CustomItem>
+              </Frame>
+            </CustomItem>
+          </CustomEntry>
+        </CustomEntries>
+      </CustomControl>
+    </View>
+    <View>
+      <Name>PingInfo</Name>
+      <ViewSelectedBy>
+        <TypeName>PingInfo</TypeName>
+      </ViewSelectedBy>
+      <CustomControl>
+        <CustomEntries>
+          <CustomEntry>
+            <CustomItem>
+              <Frame>
+                <CustomItem>
+                  <ExpressionBinding>
+                    <ScriptBlock> 
+    Write-Host "$($_.Ping) ( $(
+        if ($_.Echo) {
+            'Echo'
+        } elseif ($_.Dns) {
+            'Dns'
+        } elseif ($_.WebClient) {
+            'Web'
+        } elseif ($_.PowerShellConnection) {
+            'PowerShell'
+        }) )"
+    $null
+</ScriptBlock>
+                  </ExpressionBinding>
+                </CustomItem>
+              </Frame>
+            </CustomItem>
+          </CustomEntry>
+        </CustomEntries>
+      </CustomControl>
+    </View>
+  </ViewDefinitions>
+</Configuration>
